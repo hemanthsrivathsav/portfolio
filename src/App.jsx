@@ -88,7 +88,7 @@ function App() {
             </div>
 
             <div className=' flex gap-1  items-center justify-start '>
-              <h2>This is the smaller info section below image </h2>
+              <h5>This is the smaller info section below image</h5>
             </div>
             
           </div>
