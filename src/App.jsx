@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 
 import {Toggle} from './components/modeToggle' ;
 
+import Badge  from './components/badges';
+
+import { FaMapMarkerAlt, FaGlobe, FaUserGraduate, FaUniversity, FaClock } from 'react-icons/fa';
+import { FiSmile } from 'react-icons/fi';
 
 import './App.css'
 
@@ -33,8 +37,8 @@ function App() {
 
   return (
     <div className="">
-    <div className='  bg-slate-400 dark:bg-neutral-900 p-8 flex h-full w-full content-center justify-center '>
-    <div className=' grid w-max gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center border text-sm font-normal font-sans:system-ui '>
+    <div className='content-wrapper mx-auto max-w-screen-md md:max-w-full bg-slate-400 dark:bg-neutral-900 p-8  h-full w-full content-center justify-center '>
+    <div className='  grid w-max gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center border text-sm font-normal font-sans:system-ui '>
        
         <div className=' dark grid h-auto items-end grid-cols-1 border-solid border  bg-gray-900 border-orange-600  md:grid-cols-2 gap-3 p-3 rounded-md ' >
           <div className='  flex flex-col gap-1 bg-slate-300 dark:bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-2  bg-opacity-60 ' >
@@ -86,11 +90,25 @@ function App() {
 
       <div className=' row-span-2 grid  grid-cols-1 md:grid-cols-2 gap-3 border-solid border bg-gray-900 border-orange-600  rounded-md p-3 '>
 
-        <div className='  bg-white rounded-md '>.</div>
+        <div className='grid grid-cols-2 gap-1 p-6  bg-white rounded-md '>
+
+          <Badge icon={<FaMapMarkerAlt className="text-purple-400" />} text="India" />
+          <Badge icon={<FaGlobe className="text-purple-400" />} text="English, Hindi, Telugu" />
+          <Badge icon={<FaUserGraduate className="text-purple-400" />} text="Software Engineer" />
+          <Badge icon={<FaClock className="text-purple-400" />} text="IST" />
+          <Badge icon={<FaUniversity className="text-purple-400" />} text="KL University" />
+          <Badge icon={<FiSmile className="text-purple-400" />} text="Good Boy" />
+
+        </div>
+
 
         <div className=' grid gap-3 p-3 bg-white rounded-md '>
 
-          <div className='bg-slate-600 rounded-md '>.</div>
+        <div className='bg-slate-600 rounded-md relative overflow-hidden'>
+          <img className='rounded-sm w-full h-full object-cover' src='./favicon-c2.jpg' alt='Portfolio Game' />
+          <h2 className='absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-amber-700 text-base font-bold'>Explore my Portfolio Game</h2>
+        </div>
+
           <div className='bg-slate-600 rounded-md p-3 grid gap-3  grid-cols-2 '>
               <div className=" bg-purple-500 rounded-md">
                 

@@ -47,3 +47,16 @@
     opacity: 1;
   }
 }
+
+
+.badgetext {
+    font-size: 8px;
+}
+
+
+@layer base {
+    html, body {
+      @apply w-full h-full overflow-x-hidden overflow-y-auto scroll-smooth;
+    }
+  }
+  
