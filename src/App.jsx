@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import {Toggle} from './components/modeToggle' ;
-
 import Badge  from './components/badges';
 
 import { FaMapMarkerAlt, FaGlobe, FaUserGraduate, FaUniversity, FaClock } from 'react-icons/fa';
@@ -27,7 +25,7 @@ function App() {
         setIsAnimating(true); // Restart animation
         setCurrentIndex((prevIndex) => (prevIndex + 1) % ar.length);
       }, 50); // Small delay to reset animation
-    }, 3000); // Change string every 3 seconds
+    }, 1500); // Change string every 3 seconds
 
     return () => clearInterval(interval);
   }, [ar.length]);
@@ -68,15 +66,21 @@ function App() {
           <h1  className='p-1'>Resume</h1>
 
           <div className='flex gap-1 justify-between '>
-            <div className='cursor-pointer flex p-2 bg-slate-700 rounded-sm hover:bg-slate-900'>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
-                <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
-              </svg>
-            </div>
-            <div className=' cursor-pointer flex p-1 items-center justify-center w-9  bg-slate-300 rounded-sm hover:bg-slate-100'>
-              <img className=' ' src='./3d.png' width="25"  />
-            </div>
+
+            <a href="Resume.pdf" download="Hemanth's_Resume">
+              <div className='cursor-pointer flex p-2 bg-slate-700 rounded-sm hover:bg-slate-900'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                  <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z" />
+                  <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
+                </svg>
+              </div>
+            </a>
+
+            <a href="https://my.spline.design/untitled-0741ae787374a9c52a8ebcec7f96d867/" target="_blank"> 
+              <div className=' cursor-pointer flex p-1 items-center justify-center w-9  bg-slate-300 rounded-sm hover:bg-slate-100'>
+                <img className=' ' src='./3d.png' width="25"  />
+              </div>
+            </a>
           </div>
         
         </div>
@@ -111,16 +115,12 @@ function App() {
 
           <div className='bg-slate-600 rounded-md p-3 grid gap-3  grid-cols-2 '>
               <div className=" bg-purple-500 rounded-md">
-                
-                <p>Dark Mode</p>
-                <div className='p-1'>
-                  <Toggle />
-                </div>
+                .
               </div>
 
               <div className="grid items-center justify-center bg-yellow-500 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" class="size-10" viewBox="0 0 64 64">
-                <path d="M 23.773438 12 C 12.855437 12 12 12.854437 12 23.773438 L 12 40.226562 C 12 51.144563 12.855438 52 23.773438 52 L 40.226562 52 C 51.144563 52 52 51.145563 52 40.226562 L 52 23.773438 C 52 12.854437 51.145563 12 40.226562 12 L 23.773438 12 z M 21.167969 16 L 42.832031 16 C 47.625031 16 48 16.374969 48 21.167969 L 48 42.832031 C 48 47.625031 47.624031 48 42.832031 48 L 21.167969 48 C 16.374969 48 16 47.624031 16 42.832031 L 16 21.167969 C 16 16.374969 16.374969 16 21.167969 16 z M 22.501953 18.503906 C 20.872953 18.503906 19.552734 19.824172 19.552734 21.451172 C 19.552734 23.078172 20.871953 24.400391 22.501953 24.400391 C 24.126953 24.400391 25.447266 23.079172 25.447266 21.451172 C 25.447266 19.826172 24.126953 18.503906 22.501953 18.503906 z M 37.933594 26.322266 C 35.473594 26.322266 33.823437 27.672172 33.148438 28.951172 L 33.078125 28.951172 L 33.078125 26.728516 L 28.228516 26.728516 L 28.228516 43 L 33.28125 43 L 33.28125 34.949219 C 33.28125 32.826219 33.687359 30.771484 36.318359 30.771484 C 38.912359 30.771484 38.945312 33.200891 38.945312 35.087891 L 38.945312 43 L 44 43 L 44 34.074219 C 44 29.692219 43.054594 26.322266 37.933594 26.322266 z M 19.972656 26.728516 L 19.972656 43 L 25.029297 43 L 25.029297 26.728516 L 19.972656 26.728516 z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" opacity={0.9} viewBox="0 0 48 48">
+                <path fill="#0288D1" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"></path><path fill="#FFF" d="M12 19H17V36H12zM14.485 17h-.028C12.965 17 12 15.888 12 14.499 12 13.08 12.995 12 14.514 12c1.521 0 2.458 1.08 2.486 2.499C17 15.887 16.035 17 14.485 17zM36 36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698-1.501 0-2.313 1.012-2.707 1.99C24.957 25.543 25 26.511 25 27v9h-5V19h5v2.616C25.721 20.5 26.85 19 29.738 19c3.578 0 6.261 2.25 6.261 7.274L36 36 36 36z"></path>
                 </svg>
               </div>
           </div>
