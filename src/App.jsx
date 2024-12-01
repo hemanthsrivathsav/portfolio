@@ -39,12 +39,39 @@ function App() {
     <div className='  grid w-max gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center border text-sm font-normal font-sans:system-ui '>
        
         <div className=' dark grid h-auto items-end grid-cols-1 border-solid border  bg-gray-900 border-orange-600  md:grid-cols-2 gap-3 p-3 rounded-md ' >
-          <div className='  flex flex-col gap-1 bg-slate-300 dark:bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-2  bg-opacity-60 ' >
-            <h1>Projects+</h1>
+          {/* Projects Section */}
+
+          <div className='flex flex-col gap-2 bg-slate-300 dark:bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 bg-opacity-60'>
+            <div className='relative'>
+              <div className='flex items-center justify-center'>
+                <span className='text-7xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent'>
+                  5
+                </span>
+                <span className='text-5xl font-bold text-purple-500'>+</span>
+              </div>
+              <h1 className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-gray-300 px-2 rounded-md'>
+                Projects
+              </h1>
+            </div>
           </div>
-          <div className=' flex flex-col gap-1 bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-2  bg-opacity-60 ' >
-            <h1>Experiance +</h1>
+          
+           {/* Experience Section */}
+           <div className='flex flex-col gap-2 bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 bg-opacity-60'>
+            <div className='relative'>
+              <div className='flex items-center justify-center'>
+                <span className='text-7xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent'>
+                  1
+                </span>
+                <span className='text-5xl font-bold text-green-400'>+</span>
+              </div>
+              <h1 className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-gray-300 px-2 rounded-md'>
+                Experience
+              </h1>
+            </div>
           </div>
+
+
+
         </div>
 
 
@@ -92,7 +119,7 @@ function App() {
       </div>
 
 
-      <div className=' row-span-2 grid  grid-cols-1 md:grid-cols-2 gap-3 border-solid border bg-gray-900 border-orange-600  rounded-md p-3 '>
+      <div className=' row-span-2 grid  grid-cols-1  md:grid-cols-2 gap-3 border-solid border bg-gray-900 border-orange-600  rounded-md p-3 '>
 
         <div className='grid grid-cols-2 md:grid-cols-1 gap-1 p-6  bg-neutral-200 rounded-md '>
 
@@ -106,14 +133,14 @@ function App() {
         </div>
 
 
-        <div className=' grid gap-3 p-3 bg-white rounded-md '>
+        <div className=' grid  gap-3 p-3 bg-white rounded-md '>
 
-        <a href="https://hemanthsrivathsav.vercel.app/" target="_blank"> 
-          <div className='bg-slate-600 rounded-md relative overflow-hidden'>
-            <img className='rounded-sm w-full h-full object-cover' src='./favicon-c2.jpg' alt='Portfolio Game' />
-            <h2 className='absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-amber-700 text-base font-bold'>Explore my Portfolio Game</h2>
-          </div>
-        </a>
+          <a href="https://hemanthsrivathsav.vercel.app/" target="_blank"> 
+            <div className='bg-slate-600 rounded-md relative overflow-hidden'>
+              <img className='rounded-sm w-full h-full object-cover' src='./favicon-c2.jpg' alt='Portfolio Game' />
+              <h2 className='absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-amber-700 text-base font-bold'>Explore my Portfolio Game</h2>
+            </div>
+          </a>
 
           <div className='bg-slate-600 rounded-md p-3 grid gap-3  grid-cols-3 '>
           
