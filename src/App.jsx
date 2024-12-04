@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="">
-    <div className='content-wrapper mx-auto max-w-screen-md md:max-w-full bg-slate-400 dark:bg-neutral-900 p-8  h-full w-full content-center justify-center '>
+    <div className='content-wrapper mx-auto max-w-screen-md md:max-w-full bg-slate-400 dark:bg-neutral-900 p-8 h-full w-full content-center justify-center '>
     <div className='  grid w-max gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center border text-sm font-normal font-sans:system-ui '>
        
         <div className=' dark grid h-auto items-end grid-cols-1 border-solid border  bg-gray-900 border-orange-600  md:grid-cols-2 gap-3 p-3 rounded-md ' >
@@ -49,7 +49,7 @@ function App() {
                 </span>
                 <span className='text-5xl font-bold text-purple-500'>+</span>
               </div>
-              <h1 className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-gray-300 px-2 rounded-md'>
+              <h1 className='absolute bottom-0 left-1/3 transform -translate-x-1/2 translate-y-4 text-lg text-gray-300 font-bold px-2 rounded-md'>
                 Projects
               </h1>
             </div>
@@ -64,7 +64,7 @@ function App() {
                 </span>
                 <span className='text-5xl font-bold text-green-400'>+</span>
               </div>
-              <h1 className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-gray-300 px-2 rounded-md'>
+              <h1 className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 text-lg text-gray-300 font-bold px-2 rounded-md'>
                 Experience
               </h1>
             </div>
@@ -76,12 +76,12 @@ function App() {
 
 
       <div className=" row-span-2 grid border-solid border  bg-gray-900 border-orange-600  rounded-md gap-3 p-3">
-        <div className=" bg-neutral-100 rounded-md ">
-        <h1>My Stack !</h1>
+        <div className=" font-bold text-base bg-neutral-100 rounded-md ">
+          <h1>My Stack !</h1>
         </div>
         <div className="container flex justify-center items-center text-white text-2xl ">
           <div className={`scrolling-text ${isAnimating ? 'animate' : ''}`}>
-            <div className="" >{ar[currentIndex]}</div>
+            <div className="text-4xl font-bold " >{ar[currentIndex]}</div>
           </div>
         </div>
       </div>
@@ -119,9 +119,9 @@ function App() {
       </div>
 
 
-      <div className=' row-span-2 grid  grid-cols-1  md:grid-cols-2 gap-3 border-solid border bg-gray-900 border-orange-600  rounded-md p-3 '>
+      <div className=' row-span-2  grid-cols-1 md:flex  md:grid-cols-4 gap-3 border-solid border bg-gray-900 border-orange-600  rounded-md p-3 '>
 
-        <div className='grid grid-cols-2 md:grid-cols-1 gap-1 p-6  bg-neutral-200 rounded-md '>
+        <div className='grid col-span-1 grid-cols-2 md:w-72 md:grid-cols-1 gap-1 p-6  bg-neutral-200 rounded-md '>
 
           <Badge icon={<FaMapMarkerAlt className=" h-3 text-purple-400" />} text="India" />
           <Badge icon={<FaGlobe className="h-3 text-purple-400" />} text="English, Hindi, Telugu" />
@@ -133,36 +133,36 @@ function App() {
         </div>
 
 
-        <div className=' grid  gap-3 p-3 bg-white rounded-md '>
+        <div className=' grid col-span-2 gap-3 p-3 md:w-max rounded-md '>
 
           <a href="https://hemanthsrivathsav.vercel.app/" target="_blank"> 
             <div className='bg-slate-600 rounded-md relative overflow-hidden'>
               <img className='rounded-sm w-full h-full object-cover' src='./favicon-c2.jpg' alt='Portfolio Game' />
-              <h2 className='absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-amber-700 text-base font-bold'>Explore my Portfolio Game</h2>
+              <h2 className='absolute top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-neutral-100 text-base font-bold'>
+              Explore my Portfolio Game</h2>
             </div>
           </a>
 
           <div className='bg-slate-600 rounded-md p-3 grid gap-3  grid-cols-3 '>
           
-              <a href="https://github.com/hemanthsrivathsav" target="_blank"> 
-                <div className="grid px-2 items-center justify-center bg-neutral-100 rounded-md border border-slate-300 ">
-                  
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60" viewBox="0 0 256 256">
-                    <g fill="none" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: "normal" }}>
-                      <g transform="scale(2.56,2.56)">
-                        <circle cx="50" cy="50" r="30" fill="#654db4" />
-                        <path d="M50,83c-18.196,0 -33,-14.804 -33,-33c0,-18.196 14.804,-33 33,-33c18.196,0 33,14.804 33,33c0,18.196 -14.804,33 -33,33zM50,22c-15.439,0 -28,12.561 -28,28c0,15.439 12.561,28 28,28c15.439,0 28,-12.561 28,-28c0,-15.439 -12.561,-28 -28,-28z" fill="#8e66c1" />
-                        <path d="M69.457,49.039c0,-3.321 -1.305,-6.334 -3.419,-8.573c0.396,-2.203 0.351,-5.301 -0.538,-7.966c-4.475,0 -8.114,3.447 -8.702,4h-12.804c-0.589,-0.552 -4.019,-4 -8.494,-4c-0.8,2.401 -1.087,5.233 -0.846,7.295c-2.518,2.286 -4.108,5.575 -4.108,9.245c0,6.908 5.599,12.459 12.507,12.459h2.447c-2.003,0.917 -3.635,2.756 -4,5c-2,0 -4.864,-0.182 -6.181,-2.158c-2.46,-3.69 -3.59,-3.69 -4.819,-3.69c-1.23,0 -1.33,1.23 -0.1,2.46c1.23,1.23 1.23,1.23 2.46,3.69c1.012,2.027 3.64,3.699 8.64,3.699v6.6c0,0 6.346,1.4 8.5,1.4c2.154,0 8.5,-1.4 8.5,-1.4v-9.445c0,-2.718 -1.681,-5.092 -4,-6.155h2.449c6.909,0 12.508,-5.553 12.508,-12.461z"
-                          fill="#eeecd9"/>
-                        <path d="M50,85c-19.299,0 -35,-15.701 -35,-35c0,-19.299 15.701,-35 35,-35c19.299,0 35,15.701 35,35c0,19.299 -15.701,35 -35,35zM50,17c-18.196,0 -33,14.804 -33,33c0,18.196 14.804,33 33,33c18.196,0 33,-14.804 33,-33c0,-18.196 -14.804,-33 -33,-33z"
-                          fill="#1f212b"/>
-                        <path d="M50,79c-15.99,0 -29,-13.009 -29,-29c0,-15.991 13.01,-29 29,-29c15.99,0 29,13.009 29,29c0,2.925 -0.435,5.812 -1.291,8.582c-0.082,0.263 -0.364,0.411 -0.625,0.33c-0.264,-0.082 -0.412,-0.361 -0.33,-0.625c0.827,-2.675 1.246,-5.462 1.246,-8.287c0,-15.439 -12.561,-28 -28,-28c-15.439,0 -28,12.561 -28,28c0,15.439 12.561,28 28,28c5.856,0 11.464,-1.788 16.217,-5.171c0.225,-0.16 0.536,-0.107 0.697,0.117c0.16,0.225 0.107,0.537 -0.117,0.697c-4.924,3.504 -10.732,5.357 -16.797,5.357z"
-                          fill="#1f212b"/>
+                <div className="grid px-2 items-center justify-center bg-neutral-100 rounded-md  border border-slate-300 ">
+                  <a href="https://github.com/hemanthsrivathsav" target="_blank">     
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60" viewBox="0 0 256 256">
+                      <g fill="none" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: "normal" }}>
+                        <g transform="scale(2.56,2.56)">
+                          <circle cx="50" cy="50" r="30" fill="#654db4" />
+                          <path d="M50,83c-18.196,0 -33,-14.804 -33,-33c0,-18.196 14.804,-33 33,-33c18.196,0 33,14.804 33,33c0,18.196 -14.804,33 -33,33zM50,22c-15.439,0 -28,12.561 -28,28c0,15.439 12.561,28 28,28c15.439,0 28,-12.561 28,-28c0,-15.439 -12.561,-28 -28,-28z" fill="#8e66c1" />
+                          <path d="M69.457,49.039c0,-3.321 -1.305,-6.334 -3.419,-8.573c0.396,-2.203 0.351,-5.301 -0.538,-7.966c-4.475,0 -8.114,3.447 -8.702,4h-12.804c-0.589,-0.552 -4.019,-4 -8.494,-4c-0.8,2.401 -1.087,5.233 -0.846,7.295c-2.518,2.286 -4.108,5.575 -4.108,9.245c0,6.908 5.599,12.459 12.507,12.459h2.447c-2.003,0.917 -3.635,2.756 -4,5c-2,0 -4.864,-0.182 -6.181,-2.158c-2.46,-3.69 -3.59,-3.69 -4.819,-3.69c-1.23,0 -1.33,1.23 -0.1,2.46c1.23,1.23 1.23,1.23 2.46,3.69c1.012,2.027 3.64,3.699 8.64,3.699v6.6c0,0 6.346,1.4 8.5,1.4c2.154,0 8.5,-1.4 8.5,-1.4v-9.445c0,-2.718 -1.681,-5.092 -4,-6.155h2.449c6.909,0 12.508,-5.553 12.508,-12.461z"
+                            fill="#eeecd9"/>
+                          <path d="M50,85c-19.299,0 -35,-15.701 -35,-35c0,-19.299 15.701,-35 35,-35c19.299,0 35,15.701 35,35c0,19.299 -15.701,35 -35,35zM50,17c-18.196,0 -33,14.804 -33,33c0,18.196 14.804,33 33,33c18.196,0 33,-14.804 33,-33c0,-18.196 -14.804,-33 -33,-33z"
+                            fill="#1f212b"/>
+                          <path d="M50,79c-15.99,0 -29,-13.009 -29,-29c0,-15.991 13.01,-29 29,-29c15.99,0 29,13.009 29,29c0,2.925 -0.435,5.812 -1.291,8.582c-0.082,0.263 -0.364,0.411 -0.625,0.33c-0.264,-0.082 -0.412,-0.361 -0.33,-0.625c0.827,-2.675 1.246,-5.462 1.246,-8.287c0,-15.439 -12.561,-28 -28,-28c-15.439,0 -28,12.561 -28,28c0,15.439 12.561,28 28,28c5.856,0 11.464,-1.788 16.217,-5.171c0.225,-0.16 0.536,-0.107 0.697,0.117c0.16,0.225 0.107,0.537 -0.117,0.697c-4.924,3.504 -10.732,5.357 -16.797,5.357z"
+                            fill="#1f212b"/>
+                        </g>
                       </g>
-                    </g>
-                  </svg>
+                    </svg>
+                  </a>
                 </div>
-              </a>
 
               
                 <div className="grid items-center justify-center bg-neutral-100 rounded-md border border-slate-300 ">

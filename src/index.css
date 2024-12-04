@@ -53,6 +53,27 @@
     font-size: 8px;
 }
 
+/* Medium screens (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .badgetext {
+      font-size: 8px;
+  }
+}
+
+/* Large screens (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+  .badgetext {
+      font-size: 8px;
+  }
+}
+
+/* Extra-large screens (large desktops, 1440px and up) */
+@media (min-width: 1440px) {
+  .badgetext {
+      font-size: 6px;
+  }
+}
+
 
 @layer base {
     html, body {
