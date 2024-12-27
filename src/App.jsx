@@ -225,7 +225,7 @@ function App() {
 
             <div className=' flex gap-1  items-center justify-start '>
               <div className=' rounded-sm bg-slate-900 border-neutral-900 border '>
-                <img className='rounded-md max-w-28 md:min-w-md ' src='./Me2.jpg'  />
+                <img className='rounded-md max-w-20 md:min-w-md ' src='./Me2.jpg'  />
               </div>
               <div>
                 <div> <h1  className=' m-2 ml-4 p-1'> Navuluri Hemanth Srivathsav </h1> </div>
