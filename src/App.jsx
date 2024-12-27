@@ -7,7 +7,7 @@ import { FiSmile } from 'react-icons/fi';
 
 import './App.css'
 
-import Powerslap from "./assets/Country2.mp4"
+import Powerslap from "/public/Country3.mp4"
 
 
 
@@ -240,9 +240,9 @@ function App() {
             
           </div>
         
-        <div className=' bg-slate-800  rounded-md '>
+        <div className=' flex justify-center rounded-md '>
           <div className=' p-2'>
-            <video className='rounded-lg'autoPlay loop muted src="src\assets\Country.mp4"  width="320" height="240" >
+            <video className='  rounded-lg w-full max-w-xs md:max-w-md' width="55" height="45" autoPlay loop muted  >
               <source src={Powerslap} type="video/mp4" />
             </video>
           </div>
