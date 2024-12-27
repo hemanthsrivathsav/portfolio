@@ -224,19 +224,20 @@ function App() {
           <div className='  bg-slate-800   text-white rounded-md p-2 '>
 
             <div className=' flex gap-1  items-center justify-start '>
-              <div className=' rounded-full  bg-slate-900 border-cyan-50 border '>
-                <img className=' rounded-full' src='./me.jpg' width="80"  />
+              <div className=' rounded-sm bg-slate-900 border-neutral-900 border '>
+                <img className='rounded-md max-w-32 ' src='./Me2.jpg'  />
               </div>
               <div>
                 <div> <h1  className=' m-2 ml-4 p-1'> Navuluri Hemanth Srivathsav </h1> </div>
                 <div className=' p-1 m-2 '><p className='text-sm hover:font-mono hover:font-medium'>Software Developer </p> </div>
+                <div> <h1  className=' m-2 ml-4 p-1'> AI Enthusiast, Learning from Everyone.  </h1> </div>
               </div>
              
             </div>
 
-            <div className=' flex gap-1  items-center justify-start '>
+            {/* <div className=' flex gap-1  items-center justify-start '>
               <h5>This is the smaller info section below image</h5>
-            </div>
+            </div> */}
             
           </div>
         
