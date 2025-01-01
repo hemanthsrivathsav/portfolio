@@ -49,12 +49,12 @@ function App() {
     <div className="">
     <div className='content-wrapper mx-auto max-w-screen-md md:max-w-full bg-slate-400 dark:bg-neutral-900 p-8 h-full w-full content-center justify-center '>
       
-    <div className='  grid w-max gap-2 md:gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center md:bg-gray-900 text-sm font-normal font-sans:system-ui '>
+    <div className='  grid w-max gap-2 md:gap-1 md:w-4/5 md:mx-auto p-2 grid-cols-1 md:grid-cols-2 justify-center items-center content-center  text-sm font-normal font-sans:system-ui '>
        
-        <div className=' dark grid h-auto items-end grid-cols-1 border border-slate-600 bg-gray-900 md:grid-cols-2 gap-3 p-3 rounded-md ' >
+        <div className=' dark grid h-auto items-end grid-cols-1 md:grid-cols-2 gap-2  rounded-md ' >
           {/* Projects Section */}
 
-          <div className='flex flex-col gap-2 bg-slate-300 dark:bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 bg-opacity-60'>
+          <div className='flex flex-col gap-2  dark:bg-slate-800  border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 '>
             <div className='relative'>
               <div className='flex items-center justify-centter '>
                 <span className='text-7xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent'>
@@ -69,7 +69,7 @@ function App() {
           </div>
           
            {/* Experience Section */}
-           <div className='flex flex-col gap-2 bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 bg-opacity-60'>
+           <div className='flex flex-col gap-2 bg-slate-800  border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-4 '>
             <div className='relative'>
               <div className='flex content-start items-center justify-center'>
                 <span className='text-7xl  font-bold bg-gradient-to-r from-green-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent'>
@@ -88,8 +88,8 @@ function App() {
         </div>
 
 
-      <div className=" row-span-2 grid border-solid border  bg-gray-900 border-slate-600 rounded-md gap-3 p-3">
-        <div className=" font-bold text-base bg-neutral-100 rounded-md ">
+      <div className=" row-span-2 grid border-solid  bg-gray-900 border  border-slate-600/30 rounded-md gap-3 p-3">
+        <div className=" font-bold text-base text-gray-300 bg-slate-600  rounded-sm ">
           <h1>My Stack !</h1>
         </div>
         <div className="container flex justify-center items-center text-white text-2xl ">
@@ -100,9 +100,9 @@ function App() {
       </div>
 
 
-      <div className=' items-end  grid grid-cols-2 md:grid-rows-1 md:grid-flow-col gap-3 p-3  border border-slate-600  bg-gray-900  rounded-md '>
+      <div className=' items-en grid grid-cols-2 md:grid-rows-1 md:grid-flow-col gap-4   rounded-md '>
 
-        <div className='  flex flex-col gap-1 bg-slate-700/30 border border-slate-600/30 shadow-neon text-white rounded-md p-2  bg-opacity-60 ' >
+        <div className='  flex flex-col gap-1 bg-slate-800  border border-slate-600/30 shadow-neon text-white rounded-md p-2  ' >
           <h1  className='p-1'>Resume</h1>
 
           <div className='flex gap-1 justify-evenly '>
@@ -127,18 +127,18 @@ function App() {
         
         </div>
 
-        <div className=' md:col-span-8 h-full flex flex-col gap-1 bg-slate-700/30 border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-2  bg-opacity-60 ' >
+        <div className=' md:col-span-8 h-full flex flex-col gap-1 bg-slate-800  border border-slate-600/30 shadow-neon text-white items-center justify-center rounded-md p-2 ' >
           <h1> Achievements </h1>
         </div>
 
       </div>
 
 
-      <div className=' row-span-2  grid-cols-1 md:flex  md:grid-cols-4 gap-3 border border-slate-600 bg-gray-900  rounded-md p-3 '>
+      <div className=' row-span-2  grid-cols-1 md:flex  md:grid-cols-4 gap-3   rounded-md  '>
 
-        <div className='grid col-span-1 grid-cols-2 md:w-72 md:grid-cols-1 gap-1 p-6  bg-neutral-200 rounded-md '>
+        <div className='grid grid-cols-2 col-span-1 md:w-72 md:grid-cols-1 gap-1 p-6 bg-slate-600 rounded-md '>
 
-          <Badge icon={<FaMapMarkerAlt className=" h-3 text-purple-400" />} text="India" />
+          {/* <Badge icon={<FaMapMarkerAlt className=" h-3 text-purple-400" />} text="India" /> */}
           <Badge icon={<FaGlobe className="h-3 text-purple-400" />} text="English, Hindi, Telugu" />
           <Badge icon={<FaUserGraduate className="h-3 text-purple-400" />} text="Software Engineer" />
           <Badge icon={<FaClock className="h-3 text-purple-400" />} text="IST" />
@@ -148,7 +148,7 @@ function App() {
         </div>
 
 
-        <div className=' grid col-span-2 gap-3 p-3 md:w-max rounded-md border border-slate-600 '>
+        <div className=' grid col-span-2 gap-3 p-3 md:w-max rounded-md '>
 
             <div className=' bg-slate-600 rounded-md relative overflow-hidden'>
               <a href="https://hemanthsrivathsav.vercel.app/" target="_blank"> 
@@ -219,13 +219,13 @@ function App() {
       </div>
 
 
-      <div className=' grid p-3 gap-3 border border-slate-600 bg-gray-900  rounded-md '>
+      <div className=' grid  gap-3  rounded-md '>
 
-          <div className='  bg-slate-800   text-white rounded-md p-2 '>
+          <div className='  bg-slate-800  text-white rounded-md p-2 '>
 
-            <div className=' flex gap-1  items-center justify-start '>
-              <div className=' rounded-sm bg-slate-900 border-neutral-900 border '>
-                <img className='rounded-md max-w-24 md:min-w-md ' src='./Me2.jpg'  />
+            <div className=' flex gap-1 justify-center '>
+              <div className=' flex  items-center justify-start  '>
+                <img className='rounded-md max-w-24  md:min-w-md ' src='./Me2.jpg'  />
               </div>
               <div>
                 <div> <h1  className=' m-2 ml-4 p-1'> Navuluri Hemanth Srivathsav </h1> </div>
