@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { Award, Blocks, Briefcase, Cpu } from "lucide-react";
+import { Award, Blocks, Briefcase, Cpu, FileText } from "lucide-react";
 import Particles from "../components/Particles";
 import { Dock } from "../components/Dock";
 import { Bento } from "../components/Bento";
@@ -11,7 +11,7 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import { useParallax } from "../hooks/useParallax";
 import { BG_LEVELS, isBgLevel, isTheme } from "../types";
 import { mutedText, softSurface, subtleText } from "../styles";
-import { about, certifications, experiments, highlights, now, profile, projects, skills } from "../data/portfolio";
+import { about, certifications, experiments, highlights, now, paper, profile, projects, skills } from "../data/portfolio";
 
 // Dragging tiles only makes sense with a mouse; touch devices keep the plain responsive grid.
 const canDrag = !window.matchMedia("(pointer: coarse)").matches;
@@ -95,6 +95,7 @@ export default function PortfolioPreview() {
                           <>
                             <div className="font-medium">{p.title}</div>
                             <div className={`text-sm ${subtleText}`}>{p.desc}</div>
+                            {p.award && <div className="mt-1 text-xs font-medium text-amber-700 dark:text-amber-300">🏆 {p.award}</div>}
                           </>
                         );
                         const cardClass =
@@ -151,9 +152,18 @@ export default function PortfolioPreview() {
                   </Bento>
                 </DraggableItem>
 
-                <DraggableItem itemKey="oss">
-                  <Bento title="Open Source">
-                    <div className={`text-sm ${subtleText}`}>Coming soon</div>
+                <DraggableItem itemKey="paper" id="paper">
+                  <Bento title="Paper Publishings" icon={<FileText className="h-5 w-5" />}>
+                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className="font-medium leading-snug hover:underline">
+                      {paper.title}
+                    </a>
+                    <div className={`mt-1 text-xs ${subtleText}`}>
+                      {paper.venue} · {paper.coAuthors}
+                    </div>
+                    <p className={`mt-3 text-sm leading-relaxed ${mutedText}`}>{paper.summary}</p>
+                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className={`mt-4 inline-block text-sm ${linkPill}`}>
+                      Read on Springer →
+                    </a>
                   </Bento>
                 </DraggableItem>
 

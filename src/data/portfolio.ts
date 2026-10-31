@@ -9,20 +9,42 @@ export const profile = {
 };
 
 export const about =
-  "I build data-driven, delightful experiences. Recently: gamified AWS learning, optimized Kubernetes jobs for heavy file conversions, shipped a React Native spend tracker.";
+  "I build data-driven, delightful experiences. Recently: Supersede, a tool that proves why an AI agent's answer was wrong; optimized Kubernetes jobs for heavy file conversions; shipped a React Native spend tracker.";
 
-export const projects: { title: string; desc: string; href?: string }[] = [
-  { title: "Gamified AWS Learner", desc: "Learn AWS via quests and badges." },
+export const projects: { title: string; desc: string; href?: string; award?: string }[] = [
+  {
+    title: "Supersede",
+    desc: "Decision provenance for AI agents: finds answers built on outdated evidence and proves it by replay.",
+    href: "https://github.com/hemanthsrivathsav/agentic_rca",
+  },
+  {
+    title: "EcoCode",
+    desc: "Shows the carbon impact of every pull request and commit.",
+    href: "https://github.com/hemanthsrivathsav/git_ecoCode/tree/master",
+    award: "1st place · JPMC Tech Sustainability Hackathon",
+  },
+  { title: "Gamified AWS Learner", desc: "Learn AWS via quests and badges.", award: "2nd place · Inseption Hackathon" },
   { title: "Spend Sense (RN)", desc: "Reads SMS to categorize spends." },
-  { title: "Carbon-Smart Coding", desc: "Lower energy footprint of code." },
 ];
 
 export const highlights = [
-  "🏆 Won Tech_Sustainability Hackathon @JPMC",
+  "🌟 \"Stars of the Future\" Award, JPMorgan Chase",
+  "🏆 1st Place, JPMC Tech Sustainability Hackathon",
+  "🥈 2nd Place, JPMC Tech Sustainability Hackathon (AI Edition)",
+  "🥈 2nd Place, Inseption Hackathon",
   "🏆 Won Sepathon @JPMC",
+  "📄 Published in Springer LNNS: YOLOv8 small-object (weapon) detection",
   "🎓 B.Tech CSE (AI&ML), KL University",
-  "☁️ AWS Cloud Practitioner prep",
 ];
+
+export const paper = {
+  title: "Deep Learning Based Small Object (Weapon) Detection in Complex Scene Using YOLO-V8",
+  href: "https://link.springer.com/chapter/10.1007/978-981-95-0497-8_23",
+  venue: "Springer · Lecture Notes in Networks and Systems · 2026",
+  coAuthors: "with Vegesh Boppana et al.",
+  summary:
+    "Detects small weapons such as handguns in complex surveillance scenes with YOLOv8 Nano, trained on a custom 16,000-image dataset covering blur, occlusion and weapon-like objects.",
+};
 
 export const skills = [
   "Python",
@@ -39,7 +61,7 @@ export const skills = [
   "Git",
 ];
 
-export const now = ["Learning: AWS • K8- kubernetes", "Building: RN spending tracker", "Reading: Systems Design"];
+export const now = ["Learning: AWS • Kubernetes", "Building: RN spending tracker", "Reading: Systems Design"];
 
 export const certifications: Slide[] = [
   {
@@ -58,4 +80,5 @@ export const certifications: Slide[] = [
 export const experiments: Slide[] = [
   { src: "/experiments/portfolio-v1.webp", href: "https://hemanthsrivathsav.vercel.app/", alt: "Earlier portfolio site" },
   { src: "/experiments/spline-scene.webp", href: "https://my.spline.design/untitled-0741ae787374a9c52a8ebcec7f96d867/", alt: "Spline 3D scene" },
+  { src: "/experiments/squad-shuffle.webp", href: "https://squad-shuffle.vercel.app/", alt: "Squad Shuffle: random team picker" },
 ];

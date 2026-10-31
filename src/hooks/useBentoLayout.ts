@@ -7,8 +7,8 @@ export type Positions = Record<string, XY>;
 /** Box of each item as laid out by the CSS grid, relative to the board. */
 export type Baseline = Record<string, XY & { w: number; h: number }>;
 
-const LAYOUT_KEY = "bento-layout-v2";
-const SAVED_LAYOUT_KEY = "bento-layout-saved-v2";
+const LAYOUT_KEY = "bento-layout-v3";
+const SAVED_LAYOUT_KEY = "bento-layout-saved-v3";
 
 const isPositions = (v: unknown): v is Positions => typeof v === "object" && v !== null && !Array.isArray(v);
 
