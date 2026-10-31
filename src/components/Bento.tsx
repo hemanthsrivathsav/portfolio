@@ -1,15 +1,19 @@
-import React, { type HTMLAttributes, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
-export function Bento({ children, className = "", theme = "dark", ...rest }: { children: ReactNode; className?: string; theme?: "dark" | "light" } & HTMLAttributes<HTMLDivElement>) {
-  const isLight = theme === "light";
+/** Card shell for every tile on the board, with an optional icon + title header. */
+export function Bento({ title, icon, actions, children }: { title?: string; icon?: ReactNode; actions?: ReactNode; children: ReactNode }) {
   return (
-    <motion.div
-      transition={{ type: "spring", stiffness: 250, damping: 20 }}
-      className={`rounded-3xl p-5 backdrop-blur-md border ${isLight ? "bg-white/70 border-black/10 shadow-sm" : "bg-white/5 border-white/10"} ${className}`}
-      {...rest}
-    >
+    <div className="rounded-3xl border border-black/10 bg-white/70 p-5 shadow-xs backdrop-blur-md dark:border-white/10 dark:bg-white/5 dark:shadow-none">
+      {title && (
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {icon}
+            <h2 className="text-xl font-semibold">{title}</h2>
+          </div>
+          {actions}
+        </div>
+      )}
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -3,8 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My_Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="./public/heart.png" >
+    <meta name="description" content="N. Hemanth Srivathsav — Software Engineer at JPMorgan Chase & Co. Projects, skills, certifications and experiments." />
+    <title>N. Hemanth Srivathsav · Portfolio</title>
+    <link rel="icon" type="image/png" href="/heart.png" />
+    <link rel="preload" as="image" href="/profile.webp" fetchpriority="high" />
+    <script>
+      // Apply the saved theme before first paint so there is no light/dark flash.
+      try {
+        if (JSON.parse(localStorage.getItem("theme")) !== "light") document.documentElement.classList.add("dark");
+      } catch {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

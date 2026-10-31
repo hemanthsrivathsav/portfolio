@@ -1,87 +1,91 @@
-import React from "react";
-import { Sparkles, Sun, Moon, RotateCcw, Save } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Check, Moon, RotateCcw, Save, Sparkles, Sun } from "lucide-react";
+import type { BgLevel, Theme } from "../types";
+
+const LEVEL_LABEL: Record<BgLevel, string> = { low: "Low", mid: "Mid", high: "High" };
+
+function DockButton({ title, onClick, className = "inline-flex", children }: { title: string; onClick: () => void; className?: string; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      title={title}
+      onClick={onClick}
+      className={`${className} items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 hover:bg-black/5 dark:hover:bg-white/10`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function Separator({ className = "" }: { className?: string }) {
+  return <span aria-hidden="true" className={`h-6 w-px bg-black/10 dark:bg-white/10 ${className}`} />;
+}
 
 export function Dock({
   bgLevel,
   onCycleBg,
   theme,
   onToggleTheme,
+  showLayoutControls,
   onReset,
   onSave,
 }: {
-  bgLevel: "low" | "mid" | "high";
+  bgLevel: BgLevel;
   onCycleBg: () => void;
-  theme: "dark" | "light";
+  theme: Theme;
   onToggleTheme: () => void;
+  showLayoutControls: boolean;
   onReset: () => void;
   onSave: () => void;
 }) {
   const isLight = theme === "light";
-  const sep = "w-px h-6 bg-white/10";
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (!saved) return;
+    const t = window.setTimeout(() => setSaved(false), 1500);
+    return () => window.clearTimeout(t);
+  }, [saved]);
 
   return (
-    <div className="fixed left-1/2 -translate-x-1/2 top-4 z-30">
-      <div
-        className={`flex items-center gap-2 rounded-3xl border backdrop-blur px-2 py-2 shadow-lg ${
-          isLight ? "border-black/10 bg-white/70" : "border-white/15 bg-black/40"
-        }`}
-      >
-        {/* Background intensity */}
-        <button
-          onClick={onCycleBg}
-          className={`inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 ${
-            isLight ? "hover:bg-black/5" : "hover:bg-white/10"
-          }`}
-          title="Toggle background intensity"
-        >
+    <nav aria-label="Display settings" className="fixed left-1/2 top-4 z-30 -translate-x-1/2">
+      <div className="flex items-center gap-2 rounded-3xl border border-black/10 bg-white/70 p-2 shadow-lg backdrop-blur-sm dark:border-white/15 dark:bg-black/40">
+        <DockButton title="Toggle background intensity" onClick={onCycleBg}>
           <Sparkles className="h-4 w-4" />
-          <span className="hidden sm:block">
-            Background: {bgLevel[0].toUpperCase() + bgLevel.slice(1)}
-          </span>
-        </button>
+          <span className="hidden sm:block">Background: {LEVEL_LABEL[bgLevel]}</span>
+        </DockButton>
 
-        <div className={`${sep}`} />
+        <Separator />
 
-        {/* Theme */}
-        <button
-          onClick={onToggleTheme}
-          className={`inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 ${
-            isLight ? "hover:bg-black/5" : "hover:bg-white/10"
-          }`}
-          title="Switch theme"
-        >
+        <DockButton title="Switch theme" onClick={onToggleTheme}>
           {isLight ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           <span className="hidden sm:block">{isLight ? "Dark" : "Light"} mode</span>
-        </button>
+        </DockButton>
 
-        {/* Save / Reset — hidden on mobile */}
-        <div className="hidden sm:block w-px h-6 bg-white/10" />
+        {/* Layout controls only make sense where tiles can be dragged (not on touch / small screens). */}
+        {showLayoutControls && (
+          <>
+            <Separator className="hidden sm:block" />
+            <DockButton
+              title="Save layout"
+              className="hidden sm:inline-flex"
+              onClick={() => {
+                onSave();
+                setSaved(true);
+              }}
+            >
+              {saved ? <Check className="h-4 w-4" /> : <Save className="h-4 w-4" />}
+              <span>{saved ? "Saved" : "Save layout"}</span>
+            </DockButton>
 
-        <button
-          onClick={onSave}
-          className={`hidden sm:inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 ${
-            isLight ? "hover:bg-black/5" : "hover:bg-white/10"
-          }`}
-          title="Save layout"
-        >
-          <Save className="h-4 w-4" />
-          <span>Save layout</span>
-        </button>
-
-        <div className="hidden sm:block w-px h-6 bg-white/10" />
-
-        <button
-          onClick={onReset}
-          className={`hidden sm:inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 ${
-            isLight ? "hover:bg-black/5" : "hover:bg-white/10"
-          }`}
-          title="Reset layout"
-        >
-          <RotateCcw className="h-4 w-4" />
-          <span>Reset layout</span>
-        </button>
+            <Separator className="hidden sm:block" />
+            <DockButton title="Reset layout" className="hidden sm:inline-flex" onClick={onReset}>
+              <RotateCcw className="h-4 w-4" />
+              <span>Reset layout</span>
+            </DockButton>
+          </>
+        )}
       </div>
-    </div>
+    </nav>
   );
 }
- 

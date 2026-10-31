@@ -1,152 +1,109 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { createContext, use, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import type { BentoLayout, XY } from "../hooks/useBentoLayout";
 
-/** Position maps persisted in localStorage */
-export type Positions = Record<string, { x: number; y: number }>;
-/** Baseline measured from initial grid layout */
-export type Baseline = Record<string, { x: number; y: number; w: number; h: number }>;
+const GRID = 16;
+const DRAG_THRESHOLD = 4; // px of movement before a press becomes a drag (so clicks still work)
 
-type XY = { x: number; y: number };
+export const BoardContext = createContext<BentoLayout | null>(null);
+
+const snap = (n: number) => Math.round(n / GRID) * GRID;
+const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n));
+const translate = ({ x, y }: XY) => `translate(${x}px, ${y}px)`;
 
 export function DraggableItem({
   itemKey,
+  id,
   className = "",
-  htmlId,
   children,
-  boardRef,
-  positions,
-  setPositions,
-  abs,
-  baseline,
-  grid = 16,
 }: {
   itemKey: string;
+  id?: string;
   className?: string;
-  htmlId?: string;
-  children: React.ReactNode;
-  boardRef: React.RefObject<HTMLDivElement>;
-  positions: Positions;
-  setPositions: React.Dispatch<React.SetStateAction<Positions>>;
-  abs: boolean;
-  baseline: Baseline;
-  grid?: number;
+  children: ReactNode;
 }) {
-  // Detect “touch / coarse” pointers → mobile/tablet
-  const isCoarse = useMemo(
-    () => (typeof window !== "undefined" ? window.matchMedia?.("(pointer: coarse)")?.matches : false),
-    []
-  );
+  const board = use(BoardContext);
+  if (!board) throw new Error("DraggableItem must be rendered inside <BoardContext>");
+  const { boardRef, positions, setPositions, baseline, boardSize, abs } = board;
 
-  // ----- initial position from persisted or baseline -----
-  const startBase = baseline[itemKey];
-  const start = positions[itemKey] ?? (startBase ? { x: startBase.x, y: startBase.y } : { x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ pointerId: number; startX: number; startY: number; origin: XY; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
+  const [dragging, setDragging] = useState(false);
 
-  const x = useMotionValue(start.x);
-  const y = useMotionValue(start.y);
+  const box = baseline[itemKey];
+  const floating = abs && box;
+  // Saved positions can come from a wider window; keep the tile on the board.
+  const saved = positions[itemKey] ?? box ?? { x: 0, y: 0 };
+  const pos = box ? { x: clamp(saved.x, 0, boardSize.w - box.w), y: clamp(saved.y, 0, boardSize.h - box.h) } : saved;
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const startRef = useRef<XY>({ x: start.x, y: start.y });
-
-  // Sync with external updates (e.g., Reset)
-  useEffect(() => {
-    const b = baseline[itemKey];
-    const p = positions[itemKey] ?? (b ? { x: b.x, y: b.y } : undefined);
-    if (p) {
-      x.set(p.x);
-      y.set(p.y);
-      startRef.current = { x: p.x, y: p.y };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [positions[itemKey]?.x, positions[itemKey]?.y, baseline[itemKey]?.x, baseline[itemKey]?.y]);
-
-  // ----- helpers -----
-  const snap = (n: number) => Math.round(n / grid) * grid;
-
-  const clampToBoard = (nx: number, ny: number) => {
-    const board = boardRef.current;
-    const el = ref.current;
-    if (!board || !el) return { x: nx, y: ny };
-
-    const br = board.getBoundingClientRect();
-    const w = (el as HTMLElement).offsetWidth;
-    const h = (el as HTMLElement).offsetHeight;
-
-    // account for current transform
-    const currentX = x.get();
-    const currentY = y.get();
-
-    const er = el.getBoundingClientRect();
-    const baseLeft = er.left - br.left - currentX;
-    const baseTop = er.top - br.top - currentY;
-
-    const minX = -baseLeft;
-    const minY = -baseTop;
-    const maxX = br.width - w - baseLeft;
-    const maxY = br.height - h - baseTop;
-
-    return {
-      x: Math.max(minX, Math.min(maxX, nx)),
-      y: Math.max(minY, Math.min(maxY, ny)),
-    };
+  // While dragging, the transform is written straight to the DOM so React doesn't re-render every move.
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    suppressClick.current = false;
+    if (!floating || e.button !== 0 || (e.target as Element).closest("button, input, textarea, select")) return;
+    drag.current = { pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, origin: pos, moved: false };
   };
 
-  const setPos = (xy: XY) => setPositions((p) => ({ ...p, [itemKey]: xy }));
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d || d.pointerId !== e.pointerId || !ref.current) return;
+    const dx = e.clientX - d.startX;
+    const dy = e.clientY - d.startY;
+    if (!d.moved) {
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+      d.moved = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+      document.body.style.userSelect = "none";
+      setDragging(true);
+    }
+    ref.current.style.transform = translate({ x: d.origin.x + dx, y: d.origin.y + dy });
+  };
 
-  // During measuring phase we return static nodes so the grid lays them out
-  if (!abs) {
-    return (
-      <div id={htmlId} data-key={itemKey} className={className}>
-        {children}
-      </div>
-    );
-  }
+  const endDrag = (e: PointerEvent<HTMLDivElement>, commit: boolean) => {
+    const d = drag.current;
+    if (!d || d.pointerId !== e.pointerId) return;
+    drag.current = null;
+    if (!d.moved) return;
+    document.body.style.userSelect = "";
+    setDragging(false);
+    suppressClick.current = true; // the click that follows a drag shouldn't open links
 
-  // On mobile/coarse pointers, disable drag entirely; keep scroll smooth
-  const dragEnabled = !isCoarse;
+    const el = ref.current;
+    const boardEl = boardRef.current;
+    let next = d.origin;
+    if (commit && el && boardEl) {
+      next = {
+        x: clamp(snap(d.origin.x + e.clientX - d.startX), 0, boardEl.clientWidth - el.offsetWidth),
+        y: clamp(snap(d.origin.y + e.clientY - d.startY), 0, boardEl.clientHeight - el.offsetHeight),
+      };
+      setPositions((p) => ({ ...p, [itemKey]: next }));
+    }
+    // Set explicitly: if the position didn't change, React won't touch the style we mutated.
+    if (el) el.style.transform = translate(next);
+  };
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      id={htmlId}
+      id={id}
       data-key={itemKey}
-      className={className + (dragEnabled ? " cursor-grab active:cursor-grabbing" : "")}
-      style={{
-        x,
-        y,
-        // allow native scrolling on touch devices; no special handling needed if drag disabled
-        touchAction: dragEnabled ? "none" : "pan-y",
-        position: "absolute",
-        left: 0,
-        top: 0,
-        width: baseline[itemKey]?.w,
-        height: baseline[itemKey]?.h,
+      className={`${className} ${floating ? `touch-none ${dragging ? "z-40 cursor-grabbing" : "cursor-grab"}` : ""}`}
+      style={
+        floating ? { position: "absolute", left: 0, top: 0, width: box.w, height: box.h, transform: translate(pos) } : undefined
+      }
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={(e) => endDrag(e, true)}
+      onPointerCancel={(e) => endDrag(e, false)}
+      onClickCapture={(e) => {
+        if (!suppressClick.current) return;
+        suppressClick.current = false;
+        e.preventDefault();
+        e.stopPropagation();
       }}
-      drag={dragEnabled}
-      dragMomentum={false}
-      dragElastic={0.12}
-      whileDrag={dragEnabled ? { zIndex: 40 } : undefined}
-      onDragStart={() => {
-        startRef.current = { x: x.get(), y: y.get() };
-      }}
-      onDrag={(e, info) => {
-        // keep our custom tracking so snapping/clamping is consistent
-        const nextX = startRef.current.x + info.offset.x;
-        const nextY = startRef.current.y + info.offset.y;
-        x.set(nextX);
-        y.set(nextY);
-      }}
-      onDragEnd={(e, info) => {
-        const rawX = startRef.current.x + info.offset.x;
-        const rawY = startRef.current.y + info.offset.y;
-        const nx = snap(rawX);
-        const ny = snap(rawY);
-        const clamped = clampToBoard(nx, ny);
-        x.set(clamped.x);
-        y.set(clamped.y);
-        setPos(clamped);
-      }}
+      // Links and images are natively draggable, which would hijack the pointer.
+      onDragStart={(e) => floating && e.preventDefault()}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
