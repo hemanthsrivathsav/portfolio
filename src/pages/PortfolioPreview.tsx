@@ -4,17 +4,14 @@ import Particles from "../components/Particles";
 import { Dock } from "../components/Dock";
 import { Bento } from "../components/Bento";
 import { Carousel } from "../components/Carousel";
-import { BoardContext, DraggableItem } from "../components/Draggable";
 import { GithubIcon, LinkedinIcon } from "../components/BrandIcons";
-import { useBentoLayout } from "../hooks/useBentoLayout";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import { useParallax } from "../hooks/useParallax";
+import { ProjectsSection, projectAnchor } from "../sections/ProjectsSection";
+import { HighlightsSection } from "../sections/HighlightsSection";
 import { BG_LEVELS, isBgLevel, isTheme } from "../types";
 import { mutedText, softSurface, subtleText } from "../styles";
 import { about, certifications, experiments, highlights, now, paper, profile, projects, skills } from "../data/portfolio";
-
-// Dragging tiles only makes sense with a mouse; touch devices keep the plain responsive grid.
-const canDrag = !window.matchMedia("(pointer: coarse)").matches;
 
 const linkPill = `rounded-2xl px-4 py-2 transition-transform duration-200 hover:-translate-y-0.5 ${softSurface}`;
 
@@ -23,7 +20,6 @@ export default function PortfolioPreview() {
 
   const [theme, setTheme] = useLocalStorageState("theme", "dark", isTheme);
   const [bgLevel, setBgLevel] = useLocalStorageState("bg-level", "mid", isBgLevel);
-  const layout = useBentoLayout(canDrag);
 
   useLayoutEffect(() => {
     const root = document.documentElement;
@@ -39,9 +35,6 @@ export default function PortfolioPreview() {
         onCycleBg={() => setBgLevel((l) => BG_LEVELS[(BG_LEVELS.indexOf(l) + 1) % BG_LEVELS.length])}
         theme={theme}
         onToggleTheme={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-        showLayoutControls={canDrag}
-        onReset={layout.resetLayout}
-        onSave={layout.saveLayout}
       />
 
       <header id="home" className="relative pb-10 pt-28 sm:pt-36">
@@ -80,57 +73,65 @@ export default function PortfolioPreview() {
       <main>
         <section id="about" className="pb-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <BoardContext value={layout}>
-              <div
-                ref={layout.boardRef}
-                data-abs={layout.abs}
-                className="relative grid auto-rows-[minmax(120px,auto)] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
-                style={layout.abs ? { height: layout.boardSize.h } : undefined}
-              >
-                <DraggableItem itemKey="projects" id="projects" className="lg:row-span-2">
-                  <Bento title="Projects" icon={<Briefcase className="h-5 w-5" />}>
+            {/*
+              Fixed bento layout. On large screens the board is three columns (left, middle spanning two
+              tracks, right). Below lg the column wrappers use `display: contents`, so the tiles flow into
+              the responsive grid in the order set by `max-lg:order-*`.
+            */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
+              <div className="contents lg:flex lg:flex-col lg:gap-5">
+                <div className="max-lg:order-1">
+                  <Bento title="Projects" icon={<Briefcase className="h-5 w-5" />} link={{ href: "#projects", label: "See all projects" }}>
                     <div className="space-y-3">
-                      {projects.map((p) => {
-                        const card = (
-                          <>
-                            <div className="font-medium">{p.title}</div>
-                            <div className={`text-sm ${subtleText}`}>{p.desc}</div>
-                            {p.award && <div className="mt-1 text-xs font-medium text-amber-700 dark:text-amber-300">🏆 {p.award}</div>}
-                          </>
-                        );
-                        const cardClass =
-                          "block rounded-2xl border border-black/10 bg-white p-3 transition-transform duration-200 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl hover:shadow-sky-400/20 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/10 dark:hover:shadow-sky-500/20";
-                        return p.href ? (
-                          <a key={p.title} href={p.href} target="_blank" rel="noopener noreferrer" className={cardClass}>
-                            {card}
-                          </a>
-                        ) : (
-                          <div key={p.title} className={cardClass}>
-                            {card}
-                          </div>
-                        );
-                      })}
+                      {projects.map((p) => (
+                        <a
+                          key={p.title}
+                          href={`#${projectAnchor(p)}`}
+                          className={`block rounded-2xl border p-3 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-sky-400/20 dark:hover:shadow-sky-500/20 ${
+                            p.featured
+                              ? "border-sky-300 bg-sky-50 dark:border-sky-400/40 dark:bg-sky-400/10"
+                              : "border-black/10 bg-white hover:bg-white/90 dark:border-white/10 dark:bg-white/10"
+                          }`}
+                        >
+                          {p.featured && <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-sky-700 dark:text-sky-300">Featured</div>}
+                          <h3 className="font-medium">{p.title}</h3>
+                          <p className={`text-sm ${subtleText}`}>{p.subtitle ?? p.desc}</p>
+                          {p.award && <div className="mt-1 text-xs font-medium text-amber-700 dark:text-amber-300">🏆 {p.award}</div>}
+                        </a>
+                      ))}
                     </div>
                   </Bento>
-                </DraggableItem>
+                </div>
+                <div className="max-lg:order-8">
+                  <Bento>
+                    <Carousel title="Experiments" slides={experiments} />
+                  </Bento>
+                </div>
+              </div>
 
-                <DraggableItem itemKey="about" className="lg:col-span-2 lg:row-span-2">
-                  <Bento title="About" icon={<Blocks className="h-5 w-5" />}>
+              <div className="contents lg:col-span-2 lg:flex lg:flex-col lg:gap-5">
+                <div className="max-lg:order-2">
+                  <Bento title="About" icon={<Blocks className="h-5 w-5" />} link={{ href: profile.linkedin, label: "Full background on LinkedIn" }}>
                     <p className={`leading-relaxed ${mutedText}`}>{about}</p>
                   </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="highlights">
-                  <Bento title="Highlights" icon={<Award className="h-5 w-5" />}>
-                    <ul className={`space-y-2 text-sm ${mutedText}`}>
-                      {highlights.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="skills" id="skills" className="lg:col-span-2">
+                </div>
+                <div className="contents lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
+                  <div className="max-lg:order-7">
+                    <Bento>
+                      <Carousel title="Certifications" slides={certifications} />
+                    </Bento>
+                  </div>
+                  <div className="max-lg:order-5">
+                    <Bento title="Now">
+                      <ul className={`space-y-2 text-sm ${mutedText}`}>
+                        {now.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </Bento>
+                  </div>
+                </div>
+                <div id="skills" className="max-lg:order-4">
                   <Bento title="Skills" icon={<Cpu className="h-5 w-5" />}>
                     <div className="flex flex-wrap gap-2">
                       {skills.map((s) => (
@@ -140,46 +141,8 @@ export default function PortfolioPreview() {
                       ))}
                     </div>
                   </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="now">
-                  <Bento title="Now">
-                    <ul className={`space-y-2 text-sm ${mutedText}`}>
-                      {now.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="paper" id="paper">
-                  <Bento title="Paper Publishings" icon={<FileText className="h-5 w-5" />}>
-                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className="font-medium leading-snug hover:underline">
-                      {paper.title}
-                    </a>
-                    <div className={`mt-1 text-xs ${subtleText}`}>
-                      {paper.venue} · {paper.coAuthors}
-                    </div>
-                    <p className={`mt-3 text-sm leading-relaxed ${mutedText}`}>{paper.summary}</p>
-                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className={`mt-4 inline-block text-sm ${linkPill}`}>
-                      Read on Springer →
-                    </a>
-                  </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="certs">
-                  <Bento>
-                    <Carousel title="Certifications" slides={certifications} />
-                  </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="experiments">
-                  <Bento>
-                    <Carousel title="Experiments" slides={experiments} />
-                  </Bento>
-                </DraggableItem>
-
-                <DraggableItem itemKey="links" className="lg:col-span-2">
+                </div>
+                <div className="max-lg:order-9">
                   <Bento title="Links">
                     <div className="flex flex-wrap gap-3">
                       <a href={profile.github} target="_blank" rel="noopener noreferrer" className={linkPill}>
@@ -192,11 +155,40 @@ export default function PortfolioPreview() {
                       </a>
                     </div>
                   </Bento>
-                </DraggableItem>
+                </div>
               </div>
-            </BoardContext>
+
+              <div className="contents lg:flex lg:flex-col lg:gap-5">
+                <div className="max-lg:order-3">
+                  <Bento title="Highlights" icon={<Award className="h-5 w-5" />} link={{ href: "#highlights", label: "See highlights and LinkedIn posts" }}>
+                    <ul className={`space-y-2 text-sm ${mutedText}`}>
+                      {highlights.map((h) => (
+                        <li key={h}>{h}</li>
+                      ))}
+                    </ul>
+                  </Bento>
+                </div>
+                <div id="paper" className="max-lg:order-6">
+                  <Bento title="Paper Publishings" icon={<FileText className="h-5 w-5" />} link={{ href: paper.href, label: "Read the paper on Springer" }}>
+                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className="font-medium leading-snug hover:underline">
+                      {paper.title}
+                    </a>
+                    <div className={`mt-1 text-xs ${subtleText}`}>
+                      {paper.venue} · {paper.coAuthors}
+                    </div>
+                    <p className={`mt-3 text-sm leading-relaxed ${mutedText}`}>{paper.summary}</p>
+                    <a href={paper.href} target="_blank" rel="noopener noreferrer" className={`mt-4 inline-block text-sm ${linkPill}`}>
+                      Read on Springer →
+                    </a>
+                  </Bento>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
+
+        <ProjectsSection />
+        <HighlightsSection />
       </main>
 
       <footer className="relative py-16">

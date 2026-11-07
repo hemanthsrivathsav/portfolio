@@ -4,6 +4,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  /* Bento tiles link to sections further down the page. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   /* Tailwind v4 no longer gives buttons a pointer cursor. */
   button:not(:disabled) {
     cursor: pointer;

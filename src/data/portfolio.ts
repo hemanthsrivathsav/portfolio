@@ -11,16 +11,49 @@ export const profile = {
 export const about =
   "I build data-driven, delightful experiences. Recently: Supersede, a tool that proves why an AI agent's answer was wrong; optimized Kubernetes jobs for heavy file conversions; shipped a React Native spend tracker.";
 
-export const projects: { title: string; desc: string; href?: string; award?: string }[] = [
+export type Project = {
+  title: string;
+  desc: string;
+  /** Source code. */
+  repo?: string;
+  /** Deployed app. When set, clicking the project card opens this instead of the repo. */
+  live?: string;
+  award?: string;
+  featured?: boolean;
+  subtitle?: string;
+  details?: string[];
+  technologies?: string[];
+};
+
+export const projects: Project[] = [
+  {
+    title: "Nexar",
+    subtitle: "Agentic Conversational Analytics Platform",
+    featured: true,
+    desc: "Developed a production-grade AI analytics platform that turns natural-language questions about Databricks data into validated insights, visualizations, and data stories.",
+    details: [
+      "Integrated a React/Flask UI with Python-based Communicator and SmartSDK microservices.",
+      "Built workflow-based multi-agent orchestration using Azure Models for intent resolution, semantic clarification, query enhancement, visualization, and data storytelling.",
+      "Connected enhanced requests to Databricks Genie while maintaining conversation and per-tab session context.",
+      "Implemented governed use-case approvals and certified SQL reuse using Delta tables and Databricks Statement Execution APIs.",
+      "Containerized and deployed services on AWS ECS behind an Application Load Balancer.",
+      "Supported delivery quality through Jenkins/Jules CI/CD, pytest, Vitest, SonarQube, logging, health checks, and service-level test coverage.",
+    ],
+    technologies: [
+      "Python", "Flask", "React", "TypeScript", "Azure Models", "LLMs",
+      "Databricks Genie", "Delta Lake", "AWS ECS", "Docker", "Jenkins",
+      "Jules", "pytest", "Vitest", "SonarQube",
+    ],
+  },
   {
     title: "Supersede",
     desc: "Decision provenance for AI agents: finds answers built on outdated evidence and proves it by replay.",
-    href: "https://github.com/hemanthsrivathsav/agentic_rca",
+    repo: "https://github.com/hemanthsrivathsav/agentic_rca",
   },
   {
     title: "EcoCode",
     desc: "Shows the carbon impact of every pull request and commit.",
-    href: "https://github.com/hemanthsrivathsav/git_ecoCode/tree/master",
+    repo: "https://github.com/hemanthsrivathsav/git_ecoCode/tree/master",
     award: "1st place · JPMC Tech Sustainability Hackathon",
   },
   { title: "Gamified AWS Learner", desc: "Learn AWS via quests and badges.", award: "2nd place · Inseption Hackathon" },
@@ -37,6 +70,58 @@ export const highlights = [
   "🎓 B.Tech CSE (AI&ML), KL University",
 ];
 
+/**
+ * LinkedIn posts shown (auto-scrolling) in the Highlights section. To add one: open the post on LinkedIn,
+ * choose "…" → "Embed this post", and copy the `src` URL from the iframe code it gives you. Only public
+ * posts offer this option. If this list is empty, the section shows the highlights above as cards.
+ */
+export type LinkedInPost = {
+  embedUrl: `https://www.linkedin.com/embed/feed/update/${string}`;
+  /** Short description for screen readers, e.g. "Winning the JPMC Tech Sustainability Hackathon". */
+  title: string;
+  /** Iframe height from LinkedIn's embed code; posts with images or video need more room. */
+  height?: number;
+};
+
+// Newest first.
+export const linkedinPosts: LinkedInPost[] = [
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7514673641608007680?collapsed=1",
+    title: "Receiving the \"Stars of the Future\" award at JPMorgan Chase",
+    height: 628,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7490764158897086464?collapsed=1",
+    title: "Mentoring with Generation Tech",
+    height: 628,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:share:7465335466440003584?collapsed=1",
+    title: "Paper on YOLOv8 small-object (weapon) detection published by Springer",
+    height: 737,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7399076524508766208?collapsed=1",
+    title: "JPMC Tech Sustainability 2.0 with AI Hackathon",
+    height: 628,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7292428288034062336?collapsed=1",
+    title: "2nd place at the JPMorgan Chase InSeption Hackathon in Hyderabad",
+    height: 628,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7275848425676386304?collapsed=1",
+    title: "Attending the conference for the weapon-detection paper",
+    height: 628,
+  },
+  {
+    embedUrl: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7261075061850218496?collapsed=1",
+    title: "1st place at the JPMC Tech Sustainability Hackathon",
+    height: 628,
+  },
+];
+
 export const paper = {
   title: "Deep Learning Based Small Object (Weapon) Detection in Complex Scene Using YOLO-V8",
   href: "https://link.springer.com/chapter/10.1007/978-981-95-0497-8_23",
@@ -48,8 +133,17 @@ export const paper = {
 
 export const skills = [
   "Python",
+  "SQL",
+  "Databricks",
+  "Databricks Genie",
+  "Delta Lake",
+  "Azure Models",
+  "LLMs",
   "AWS",
+  "AWS ECS",
+  "Application Load Balancer",
   "PySpark",
+  "Flask",
   "FastAPI",
   "Kubernetes",
   "React",
@@ -58,6 +152,12 @@ export const skills = [
   "TailwindCSS",
   "Docker",
   "PostgreSQL",
+  "Jenkins",
+  "Jules",
+  "CI/CD",
+  "pytest",
+  "Vitest",
+  "SonarQube",
   "Git",
 ];
 

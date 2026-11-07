@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // Storage can throw (private mode, quota, blocked cookies); persistence is best-effort everywhere.
-export function readStorage(key: string): unknown {
+function readStorage(key: string): unknown {
   try {
     const raw = localStorage.getItem(key);
     return raw === null ? undefined : JSON.parse(raw);
@@ -10,7 +10,7 @@ export function readStorage(key: string): unknown {
   }
 }
 
-export function writeStorage(key: string, value: unknown) {
+function writeStorage(key: string, value: unknown) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {}
